@@ -1,11 +1,11 @@
 // @Author Ethan McDonald
-// @Version 1.0 5/3/26
-// This simple function sends a payment confirmation email to the Owner email. This will need to be paired with a trigger
+// @Version 1.1 5/12/26
+// Sends a payment confirmation email to the Owner email. This will need to be paired with a trigger
 // for when a payment is made, which will likely be if a user is added, and they are marked as 'unpaid' in 
 // the spreadsheet.
 function main(){
   //NEED TRIGGER
-  PayConfirmEmail("2egmcd2@gmail.com");
+  //PayConfirmEmail("2egmcd2@gmail.com");
 }
 
 function PayConfirmEmail(email) {
@@ -31,8 +31,8 @@ function PayConfirmEmail(email) {
       range = reminderSheet.getRange("I" + count);
       if(range == "PAID") {
         Logger.log("This User has already paid");
+        } else {
 
-      } else {
        var htmlTemplate = HtmlService.createTemplateFromFile('PayRecievedEmail');
        htmlTemplate.phone = phone;
        htmlTemplate.name = name;
@@ -47,6 +47,7 @@ function PayConfirmEmail(email) {
     {htmlBody: htmlForEmail});
         range.setValue("PAID"); //Sets hasSent to true on sheet
         Logger.log("Email sent to " + mainEmail);
+    
     }
     }
   })
@@ -54,7 +55,3 @@ function PayConfirmEmail(email) {
 // @ts-ignore
 }
 
-function getAddress (location) {
-  var address = " ";
-  return address;
-}
