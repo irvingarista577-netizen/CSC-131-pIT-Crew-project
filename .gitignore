@@ -1799,3 +1799,5 @@ email_credentials.json
 38LpQTRD.Profile 1/xulstore.json
 datascraper files/email_credentials.json
 *.json
+/38LpQTRD.Profile 1
+credentials.json
