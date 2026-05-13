@@ -20,7 +20,7 @@ def aha_new_student(tablecells, class_date, webd):
              'https://www.googleapis.com/auth/drive'
              ]
 
-    credentials = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scope)
+    credentials = ServiceAccountCredentials.from_json_keyfile_name('./credentials.json', scope)
     client = gspread.authorize(credentials)
 
     # sheet = client.open('AHA Registration TEST COPY').sheet1
@@ -71,7 +71,7 @@ def acuity_new_student(course_name, fullname, phone, email, classdate, location)
              'https://www.googleapis.com/auth/drive'
              ]
 
-    sheetcreds = ServiceAccountCredentials.from_json_keyfile_name('credentials.json', scopes)
+    sheetcreds = ServiceAccountCredentials.from_json_keyfile_name('./credentials.json', scopes)
     client = gspread.authorize(sheetcreds)
 
     # sheet = client.open('AHA Registration TEST COPY').sheet1
