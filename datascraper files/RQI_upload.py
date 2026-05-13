@@ -50,7 +50,7 @@ def sheetgrab():
             dict.writerow(data)
 
         newf.close()
-    print(f'Wrote new .csv to {filepath}\n')
+    print(f'Wrote new output.csv to {filepath}\n')
     print('Uploading to RQI Server...\n')
 
     sftp_upload(outFile)

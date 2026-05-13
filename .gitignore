@@ -1,6 +1,6 @@
 setup.py
 credentials.json
-credentials.json
+email_credentials.json
 38LpQTRD.Profile 1.zip
 38LpQTRD.Profile 1/activity-stream.shortcut_cache.json
 38LpQTRD.Profile 1/addons.json
@@ -1797,6 +1797,5 @@ credentials.json
 38LpQTRD.Profile 1/webappsstore.sqlite-wal
 38LpQTRD.Profile 1/WebDriverBiDiServer.json
 38LpQTRD.Profile 1/xulstore.json
-credentials.json
-email_credentials.json
+datascraper files/email_credentials.json
 *.json
