@@ -1,5 +1,5 @@
 # By Rhianna Nichols Thomae, 2/11/2026
-# CSC 131 Software Engineering Project - Automated Webpage Parser, scraper, and uploader
+# CSC 131 Software Engineering Project - Automated Webpage Parser test
 
 import datascraper_urlconvert as urlconvert
 # import datascraper_mailbag as mailbag
@@ -12,10 +12,9 @@ from selenium.webdriver.common.by import By
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 
-
 options = Options()
 options.add_argument("-profile")
-options.add_argument("C:/Users/Ryan/OneDrive/Documents/GitHub/CSC-131-pIT-Crew-project/38LpQTRD.Profile 1")
+options.add_argument("C:/Users/Ryan/AppData/Roaming/Mozilla/Firefox/Profiles/38LpQTRD.Profile 1")
 options.add_argument("--headless")
 driver = webdriver.Firefox(options=options)
 
@@ -128,7 +127,7 @@ def main():
                 l1 = line[:l1sub].rfind(",")
                 locstr = line[l1 + 2:l2]
 
-        print(f'New Aquity student: {namestr}\nUploading info to Combined AHA sheet...')
+        print(f'New Aquity student: {namestr}\n Uploading info to Combined AHA sheet...')
         acuity_new_student(coursestr, namestr, phonestr, emailstr, datestr, locstr)
         print('Done.\n')
     af.close()
@@ -174,12 +173,12 @@ def main():
     tabledata = ""
     tabledata = driver.find_elements(By.TAG_NAME, "td")
     if tabledata:
-        print(f'New AHA site students found.\nUploading info to Combined AHA Sheet...')
+        print(f'New students found. Uploading info to Combined AHA Sheet...')
         AHA_new_student(tablecells=tabledata, class_date=datestr)
         print('Done.\n')
 
-    # driver.close()
-    # RQI_upload.sheetgrab()
+    driver.close()
+    RQI_upload.sheetgrab()
 
     return
 
