@@ -42,9 +42,10 @@ function findIndex(email){
     }
   }
 }
-function findClassIndex(UserID){
+
+function findClassIndex(userID){
   for(let i = 1; i < classSheet.getLastRow(); i++) {
-    if (email == userSearch[i][0]){
+    if (userID == classSearch[i][0]){
       return i;
     }
   }
@@ -56,8 +57,7 @@ function getLastName(index) {
 
 function getFirstName(index){
 
-  var t = userSearch[index][FIRST_NAME];
-  return t;
+  return userSearch[index][FIRST_NAME];
 }
 
 function getEmail(index) {
@@ -77,3 +77,13 @@ function getCourse(index) {
 function getClassDate(index){
   return userSearch[index][CLASS_DATE];
 }
+function getInstructor(index){
+  return classSearch[index][INSTRUCTOR_NAME];
+}
+function getClassID(index){
+  return classSearch[index][0];
+}
+function getClass(index){
+  return classSearch[index][CLASS_NAME];
+}
+
