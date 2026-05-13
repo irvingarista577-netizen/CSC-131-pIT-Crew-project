@@ -20,12 +20,12 @@ from selenium.webdriver.common.by import By
 
 options = Options()
 options.add_argument("-profile")
-options.add_argument("C:/Users/Ryan/OneDrive/Documents/GitHub/CSC-131-pIT-Crew-project/38LpQTRD.Profile 1")
+options.add_argument("38LpQTRD.Profile 1")
 options.add_argument("--headless")
 
 logops = Options()
 logops.add_argument("-profile")
-logops.add_argument("C:/Users/Ryan/OneDrive/Documents/GitHub/CSC-131-pIT-Crew-project/38LpQTRD.Profile 1")
+logops.add_argument("38LpQTRD.Profile 1")
 
 
 global_acuity_msgs = []
@@ -138,7 +138,7 @@ def mailbag_unread():
     ]
     creds = None
 
-    if os.path.exists("../token.json"):
+    if os.path.exists("token.json"):
         creds = Credentials.from_authorized_user_file("token.json", scope)
     # If there are no valid credentials available, let the user log in.
     if not creds or not creds.valid:
@@ -148,7 +148,7 @@ def mailbag_unread():
             flow = InstalledAppFlow.from_client_secrets_file("email_credentials.json", scope)
             creds = flow.run_local_server(port=0)
         # Save the credentials for the next run
-        with open("../token.json", "w") as token:
+        with open("token.json", "w") as token:
             token.write(creds.to_json())
 
     try:
@@ -192,10 +192,6 @@ def mailbag_unread():
                 AHA_parse(subject, body)
 
     except HttpError as error:
-        # TODO(developer) - Handle errors from gmail API.
         print(f"An error occurred: {error}")
 
     return
-
-
-mailbag_unread()
