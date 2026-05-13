@@ -5,7 +5,7 @@
 // the spreadsheet.
 function main(){
   //NEED TRIGGER
-  PayConfirmEmail("2egmcd2@gmail.com")
+  PayConfirmEmail("2egmcd2@gmail.com");
 }
 
 function PayConfirmEmail(email) {
