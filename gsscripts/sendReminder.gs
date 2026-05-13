@@ -1,9 +1,8 @@
 // @Author Ethan McDonald
-// @Version 1.2 5/11/2026
+// @Version 1.3 5/12/2026
 // This currently works on my sheet, the cells for the variables may need to be switched around
 // This method needs to be run everyday @ 5pm (Arbitrary time), it checks each User to see if todays date is the reminder date, then sends reminder email.
 // Requires GlobalVariables.gs
-// currently works on "email list" page of AHA sign up.
 // :3 yay
 
 function sendReminder() {
@@ -24,20 +23,20 @@ function sendReminder() {
     eDate = userInfoArr[4];
     range = reminderSheet.getRange("G" + count);
     //Checks values in console
-  //  Logger.log(range);
-  //  Logger.log(sendDate);
-  //  Logger.log(todayDate);
-  //  Logger.log(hasSent);
+    Logger.log(range);
+    Logger.log(sendDate);
+    Logger.log(todayDate);
+    Logger.log(hasSent);
     //Checks if date matches (currently doesn't care about day just year/month)
-    if (sendDate.getFullYear() == todayDate.getFullYear() && sendDate.getMonth() == todayDate.getMonth() && hasSent == false) {
+    if (sendDate.getFullYear() == todayDate.getFullYear() && sendDate.getMonth() == todayDate.getMonth() && hasSent != true) {
 
       try {
           var htmlTemplate = HtmlService.createTemplateFromFile('RemEmail');
           htmlTemplate.name = name;
-          htmlTemplate.edate = formatDate(eDate);
+          htmlTemplate.edate = eDate;
            var htmlForEmail = htmlTemplate.evaluate().getContent();
       GmailApp.sendEmail(emailAddress, name + ', your CPR certification is expiring soon', 'this email contains html',
-    {htmlBody: htmlForEmail});
+      {htmlBody: htmlForEmail});
         range.setValue(true); //Sets hasSent to true on sheet
         Logger.log("Email sent to " + emailAddress);
 
