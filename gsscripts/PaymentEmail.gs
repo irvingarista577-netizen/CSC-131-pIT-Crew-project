@@ -1,12 +1,8 @@
 // @Author Ethan McDonald
 // @Version 1.1 5/12/26
-// Sends a payment confirmation email to the Owner email. This will need to be paired with a trigger
-// for when a payment is made, which will likely be if a user is added, and they are marked as 'unpaid' in 
-// the spreadsheet.
-function main(){
-  //NEED TRIGGER
-  //PayConfirmEmail("2egmcd2@gmail.com");
-}
+// Sends a payment confirmation email to the Owner email for when a payment is made, which 
+// will likely be if a user is added, and they are marked as 'unpaid' in the spreadsheet.
+// @Param email of user
 
 function PayConfirmEmail(email) {
   var recipient = email;
@@ -27,13 +23,14 @@ function PayConfirmEmail(email) {
       date = userArr[CLASS_DATE];
       course = userArr[COURSE_NAME];
       location = userArr[LOCATION];
-      address = "123 4th st, zip code etc."
+      address = "123 4th st, zip code etc." //Location address are currently not in sheet, placeholder
       range = reminderSheet.getRange("I" + count);
+  // Assumes email is incorrect if user has already been noted as paid
       if(range == "PAID") {
         Logger.log("This User has already paid");
         } else {
 
-       var htmlTemplate = HtmlService.createTemplateFromFile('PayRecievedEmail');
+       var htmlTemplate = HtmlService.createTemplateFromFile('PayRecievedEmail'); // see PayRecievedEmail.html template
        htmlTemplate.phone = phone;
        htmlTemplate.name = name;
        htmlTemplate.date = date;
