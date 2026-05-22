@@ -1,9 +1,7 @@
 // @Author Ethan McDonald
-// @Version 1.3 5/12/2026
-// This currently works on my sheet, the cells for the variables may need to be switched around
+// @Version 1.2 5/11/2026
 // This method needs to be run everyday @ 5pm (Arbitrary time), it checks each User to see if todays date is the reminder date, then sends reminder email.
-// Requires GlobalVariables.gs
-// :3 yay
+// After sending the email, it updates the sheet to confirm a reminder has been sent, and prevents daily reminder emails
 
 function sendReminder() {
   var name = '';
@@ -16,17 +14,13 @@ function sendReminder() {
 //forEach all users.
   allData.slice(1, allData.length).forEach(function (userInfoArr) {
     count +=1;
-    sendDate = new Date(userInfoArr[5]);
-    hasSent = userInfoArr[6];
-    name = userInfoArr[1];
-    emailAddress = userInfoArr[0];
-    eDate = userInfoArr[4];
-    range = reminderSheet.getRange("G" + count);
-    //Checks values in console
-    Logger.log(range);
-    Logger.log(sendDate);
-    Logger.log(todayDate);
-    Logger.log(hasSent);
+    sendDate = new Date(userInfoArr[REMINDER_DATE]);
+    hasSent = userInfoArr[REMINDER_SENT];
+    name = userInfoArr[LAST_NAME];
+    emailAddress = userInfoArr[EMAIL_ADDRESS];
+    eDate = userInfoArr[EXPIRATION_DATE];
+    range = reminderSheet.getRange("H" + count);
+    //Checks values in console;
     //Checks if date matches (currently doesn't care about day just year/month)
     if (sendDate.getFullYear() == todayDate.getFullYear() && sendDate.getMonth() == todayDate.getMonth() && hasSent != true) {
 
