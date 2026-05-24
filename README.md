@@ -158,9 +158,13 @@ Additionally holds variables for what email address to send Owner emails to.
 ### Classes
 
 Send User Class confirmation email (classID) : sends email detailing class information to user
+
 Send Pay request email (email) : Sends email with information to finish payment when the user is added to the RQI spreadsheet and payment isn’t marked.
+
 Send Payment receipt (email, classID) : sends email to owner email with receipt after payment is confirmed from the user.
+
 Send Reminder Email() : checks each user in the email list if today’s date == user reminder date (22/23/24 months later). Runs automatically daily.
+
 
 ### Email Templates:
 
