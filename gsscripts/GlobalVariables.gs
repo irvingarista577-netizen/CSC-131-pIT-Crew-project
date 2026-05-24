@@ -39,8 +39,10 @@ var INSTRUCTOR_NAME = 6;
 // returns index of user in email sheet
 //@param email of user to find
 function findIndex(email){
+  var emailAddress = String(email);
   for(let i = 1; i < reminderSheet.getLastRow(); i++) {
-    if (email == userSearch[i][EMAIL_ADDRESS]){
+    var result = String(userSearch[i][EMAIL_ADDRESS]);
+    if (emailAddress == result){
       return i;
     }
   }
@@ -48,12 +50,13 @@ function findIndex(email){
 // returns index of class in enrollment list
 // @param userID of class entry
 function findClassIndex(userID){
+  var id = String(userID);
   for(let i = 1; i < classSheet.getLastRow(); i++) {
-    if (userID == classSearch[i][0]){
+    result = String(classSearch[i][CLASS_ID]);
+    if (id == result){
       return i;
     }
   }
-}
 // GETTER methods, returns sheet variables
 // @param sheet index
 function getLastName(index) {
