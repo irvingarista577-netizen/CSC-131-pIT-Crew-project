@@ -1,0 +1,77 @@
+package com.scheduler;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@Controller
+public class HomeController {
+
+    @Autowired
+    private BookingRepository bookingRepository;
+
+    // HOME PAGE
+    @GetMapping("/")
+    public String home() {
+        return "home";
+    }
+
+    // SAVE BOOKING
+    @PostMapping("/book")
+    public String book(
+            @RequestParam String name,
+            @RequestParam String email,
+            @RequestParam String phone,
+            @RequestParam String courseType,
+            @RequestParam String date,
+            @RequestParam String time,
+            @RequestParam(required = false) String notes
+    ) {
+
+        // DOUBLE BOOKING CHECK
+        if (bookingRepository.findByDateAndTime(date, time).isPresent()) {
+            System.out.println("DOUBLE BOOKING BLOCKED");
+            return "redirect:/?error=slot-taken";
+        }
+
+        Booking booking = new Booking(
+                name,
+                email,
+                phone,
+                courseType,
+                date,
+                time,
+                notes
+        );
+
+        bookingRepository.save(booking);
+
+        System.out.println("BOOKING SAVED");
+
+        return "success";
+    }
+
+    // RETURN ONLY AVAILABLE TIMES (REAL SCHEDULER LOGIC)
+    @GetMapping("/available-times")
+    @ResponseBody
+    public List<String> getAvailableTimes(@RequestParam String date) {
+
+        List<String> allTimes = List.of(
+                "8:00 AM", "8:30 AM", "9:00 AM", "9:30 AM", "10:00 AM",
+                "10:30 AM", "11:00 AM", "11:30 AM", "12:00 PM", "12:30 PM",
+                "1:00 PM", "1:30 PM", "2:00 PM", "2:30 PM", "3:00 PM", 
+                "3:30 PM", "4:00 PM", "4:30 PM", "5:00 PM"
+        );
+
+        List<String> bookedTimes = bookingRepository.findByDate(date)
+                .stream()
+                .map(Booking::getTime)
+                .toList();
+
+        return allTimes.stream()
+                .filter(time -> !bookedTimes.contains(time))
+                .toList();
+    }
+}

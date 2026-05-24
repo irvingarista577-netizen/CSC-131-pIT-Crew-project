@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Success</title>
+</head>
+<body style="text-align:center; font-family: Arial;">
+    <h1 style="color:green;">Booking Successful!</h1>
+    <p>Your CPR/First Aid class has been scheduled.</p>
+
+    <a href="/">Book Another</a>
+</body>
+</html>

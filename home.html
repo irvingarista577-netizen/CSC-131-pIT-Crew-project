@@ -1,0 +1,14 @@
+package com.scheduler;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import java.util.Optional;
+import java.util.List;
+
+public interface BookingRepository extends JpaRepository<Booking, Long> {
+
+    // check for double booking
+    Optional<Booking> findByDateAndTime(String date, String time);
+
+    // used for calendar (get all booked times for a date)
+    List<Booking> findByDate(String date);
+}

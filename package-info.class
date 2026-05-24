@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>American Heart Association Scheduler</title>
+
+    <script>
+    async function loadSlots() {
+        const date = document.getElementById("date").value;
+        const slotsDiv = document.getElementById("slots");
+        const timeInput = document.getElementById("time");
+
+        if (!date) return;
+
+        try {
+            const response = await fetch(`/available-times?date=${date}`);
+            const availableTimes = await response.json();
+
+            const allTimes = [
+                "8:00 AM","8:30 AM","9:00 AM","9:30 AM","10:00 AM","10:30 AM",
+                "11:00 AM","11:30 AM","12:00 PM","12:30 PM","1:00 PM", "1:30 PM",
+                "2:00 PM","2:30 PM","3:00 PM","3:30 PM", "4:00 PM","4:30 PM", "5:00 PM"
+            ];
+
+            slotsDiv.innerHTML = "";
+
+            allTimes.forEach(time => {
+                const btn = document.createElement("button");
+                btn.type = "button";
+                btn.innerText = time;
+
+                btn.style.padding = "10px";
+                btn.style.border = "1px solid #ccc";
+                btn.style.borderRadius = "6px";
+                btn.style.cursor = "pointer";
+                btn.style.margin = "5px";
+
+                if (!availableTimes.includes(time)) {
+                    btn.disabled = true;
+                    btn.style.background = "#ddd";
+                    btn.style.cursor = "not-allowed";
+                    btn.style.color = "#888";
+                } else {
+                    btn.onclick = () => {
+
+                        // set selected time
+                        timeInput.value = time;
+
+                        // reset styles
+                        document.querySelectorAll("#slots button").forEach(b => {
+                            b.style.background = "";
+                            b.style.color = "black";
+                        });
+
+                        // highlight selected
+                        btn.style.background = "#b30000";
+                        btn.style.color = "white";
+                    };
+                }
+
+                slotsDiv.appendChild(btn);
+            });
+
+        } catch (error) {
+            console.error("Error loading available times:", error);
+        }
+    }
+    </script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #b30000, #ffffff);
+        }
+
+        .header {
+            text-align: center;
+            color: white;
+            padding: 20px;
+            font-size: 22px;
+            font-weight: bold;
+            background: #b30000;
+        }
+
+        .container {
+            width: 450px;
+            margin: 60px auto;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        h1 {
+            text-align: center;
+            color: #b30000;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+            font-family: Arial, sans-serif;
+        }
+
+        textarea {
+            resize: none;
+        }
+
+        button.submit-btn {
+            width: 100%;
+            padding: 12px;
+            background: #b30000;
+            color: white;
+            border: none;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 6px;
+        }
+
+        button.submit-btn:hover {
+            background: #7a0000;
+        }
+
+        #slots {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="header">
+    American Heart Association Training Scheduler
+</div>
+
+<div class="container">
+
+    <h1>Book a Class</h1>
+
+    <form action="/book" method="post">
+
+        <label>Name</label>
+        <input type="text" name="name" required>
+
+        <label>Email</label>
+        <input type="email" name="email" required>
+
+        <label>Phone Number</label>
+        <input type="tel" name="phone" required>
+
+        <label>Course Type</label>
+        <select name="courseType" required>
+            <option value="CPR">CPR</option>
+            <option value="First Aid">First Aid</option>
+            <option value="Advanced Cardiovasculat Life Support">Advanced Cardiovascular Life Support</option>
+			<option value="Basic Life Support">Basic Life Support</option>
+			<option value="Pediatric Advanced Life Support">Pediatric Advanced Life Support</option>
+			<option value="HeartSaver First Aid">HeartSaver First Aid</option>
+				
+        </select>
+
+        <label>Select Date</label>
+        <input type="date" name="date" id="date" onchange="loadSlots()" required>
+
+        <label>Available Time Slots</label>
+        <div id="slots"></div>
+
+        <!-- hidden field to store selected time -->
+        <input type="hidden" name="time" id="time" required>
+
+        <label>Notes (Optional)</label>
+        <textarea name="notes" rows="3" placeholder="Add any extra details..."></textarea>
+
+        <button class="submit-btn" type="submit">Book Now</button>
+
+    </form>
+
+</div>
+
+</body>
+</html>
