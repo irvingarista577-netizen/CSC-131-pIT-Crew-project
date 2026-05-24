@@ -187,5 +187,104 @@ The Email Automation currently works, however it is not integrated into the GUI,
 To finalize and make functional, the email automation program will need to be integrated into the GUI and have triggers created in relation with the Scraping programs to run automatically without manual input. 
 
 
+# AHA Registration Automation System - Ethan Willform
+Backend workflow automation system developed using **Google Apps Script**, **Gmail API**, and **Google Sheets**.
+
+# Folder Layout
+
+The project follows a modular Google Apps Script structure.
+  - Note: Each file is responsible for a seperate portion of the system. 
+
+```plaintext
+Main.gs
+CONSTS.gs
+utilities.gs
+emailOutbox.gs
+AHAintake.gs
 
 
+# File Breakdown
+
+## `Main.gs`
+
+### Purpose
+Acts as the main entry point of the system.
+
+### Responsibilities
+- Starts the intake workflow
+- Calls email polling functions
+- Displays processing results
+
+---
+
+## `CONSTS.gs`
+
+### Purpose
+Stores centralized constants used throughout the project.
+
+### Responsibilities
+- Defines sheet names
+- Simplifies maintenance
+- Prevents repeated hardcoded values
+
+---
+
+## `utilities.gs`
+
+### Purpose
+Contains reusable helper functions.
+
+### Responsibilities
+- Retrieve configuration values
+- Append spreadsheet rows
+- Simplify spreadsheet interactions
+- Improve code modularity
+
+---
+
+## `emailOutbox.gs`
+
+### Purpose
+Handles outbound email processing.
+
+### Responsibilities
+- Queue registration emails
+- Generate email content
+- Send queued emails
+- Update enrollment statuses
+- Handle email errors
+
+### Features
+- Queue-based email delivery
+- Status tracking
+- Gmail integration
+- Delivery confirmation logging
+
+---
+
+## `AHAintake.gs`
+
+### Purpose
+Processes incoming AHA registration emails.
+
+### Responsibilities
+- Poll Gmail for new emails
+- Parse appointment information
+- Extract:
+  - Student names
+  - Class information
+  - Dates
+  - Instructors
+- Store raw and structured data
+- Prevent duplicate processing
+
+# Notes
+
+- This project must run inside the designated Google Sheets environment:
+
+```plaintext
+"AHA SIGNUPS"
+```
+
+- Google Apps Script supports multiple `.gs` files.  
+  Due to GitHub upload workflow limitations during development, files may temporarily be consolidated for demonstration purposes.
