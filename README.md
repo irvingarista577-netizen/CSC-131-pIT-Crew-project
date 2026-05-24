@@ -65,7 +65,7 @@ or open a powershell/terminal window in that directory and enter this command:
 
   `sftp_upload(outputfile):` Takes a .csv spreadsheet file containing student info passed by value, opens a ssh client session and connects to the RQI SFTP server. Once connected, uploads the .csv file, then closes the ssh connection.
 
-# GUI and Login Automation Files - Ramsha Tasneem
+## GUI and Login Automation Files - Ramsha Tasneem
 
 The dashboard organizes the main parts of the process in one place. Instead of checking multiple tools separately, our goal was to connect the dashboard with AHA login information, Google Sheets, email reminders, backend processing, and SFTP uploads. But, the full backend connection did not work.
 
