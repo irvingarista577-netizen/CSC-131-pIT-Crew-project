@@ -1,3 +1,7 @@
+# Datascraper Mailbag functions
+# By Rhianna Nichols Thomae, 4/22/2026
+# CSC 131 Software Engineering Project - Team 7: the pIT Crew
+
 import base64
 import os.path
 
@@ -29,7 +33,10 @@ logops.add_argument("38LpQTRD.Profile 1")
 global_acuity_msgs = []
 global_aha_dates = []
 
-
+"""
+acuity_parse: reads through a passed email string to find all the new student info,
+              then uses it to call acuity_new_student()
+"""
 def acuity_parse(subject, body):
     coursestr = ""
     namestr = ""
@@ -52,9 +59,10 @@ def acuity_parse(subject, body):
     nf = body.find('\r\n', ns)
     namestr = body[ns:nf]
 
-    ns = 8 + body.find("Phone: ")
+    ns = 9 + body.find("Phone: ")
     nf = body.find('\r\n', ns)
-    phonestr = body[ns:nf]
+    phonestr = "(" + body[ns:ns+3] + ") " + body[ns+3:ns+6] + "-" + body[ns+6:nf]
+
 
     ns = 7 + body.find("Email: ")
     nf = body.find('\r\n', ns)
@@ -70,6 +78,12 @@ def acuity_parse(subject, body):
     return
 
 
+"""
+AHA_parse: Takes the date from an email string, checks if the browser session is logged in to the AHA Dashboard,
+            then uses urlconvert to create url to the AHA website's "Classes I Teach" page, to look for the class
+            on that date. After that, it accepts any students applying to that class and then automatically reads
+            all student data from the page, and then passes it to aha_new_student()
+"""
 def AHA_parse(subject, body):
     driver = webdriver.Firefox(options=options)
     driver.get("https://ahasso.heart.org/Login/index")
@@ -83,8 +97,8 @@ def AHA_parse(subject, body):
                             message='Finish signing in to AHA Dashboard, then click OK.')
         driver.get("https://atlas.heart.org/organisation/classes-i-teach?orgSwitch=true")
         messagebox.showinfo(title="Change Organization",
-                            message='Ensure the right Organization is selected, then click OK (you won\'t have to do '
-                                    'this until you log in again!).')
+                            message='Ensure the right Organization is selected, then click OK '
+                                    '(you won\'t have to do this until you log in again!).')
 
 
     dt = 3 + body.find("on ")
@@ -98,7 +112,10 @@ def AHA_parse(subject, body):
     driver.get(newurl)
     time.sleep(1.5)
 
-    # okay it actually works without any tricks or secrets now
+    # The amount of time, effort, and trial-and-error that went into building this function and the functions it calls,
+    # to parse dates from emails, convert the date to UNIX epoch time, then sift through the AHA site's HTML
+    # hidden inside inconsistently formatted JavaScript, using python packages not intended for anything more rigorous
+    # than automated web page testing, earned me pride in this no matter what grade I get.
 
     tabledata = driver.find_elements(By.TAG_NAME, "td")
     idx = 3
@@ -130,11 +147,18 @@ def AHA_parse(subject, body):
     return
 
 
+"""
+mailbag_unread: Connects to a specified gmail account (prompting first-time login/authentication if needed),
+                and reads all unread emails in the Inbox. When it finds emails matching the expected formatting of 
+                AHA or Acuity notifications, the email's subject & body are sent to either acuity_parse() or AHA_parse()
+"""
+
 def mailbag_unread():
     scope = ["https://www.googleapis.com/auth/gmail.readonly",
              "https://www.googleapis.com/auth/gmail.modify"
     ]
     creds = None
+    email_list = []
 
     if os.path.exists("token.json"):
         creds = Credentials.from_authorized_user_file("token.json", scope)
@@ -170,9 +194,11 @@ def mailbag_unread():
             msg = service.users().messages().get(userId="me", id=message["id"]).execute()
             payload = msg['payload']
             headers = payload['headers']
+            subject = ""
 
             # Look for Subject and Sender Email in the headers
             for d in headers:
+
                 if d['name'] == 'Subject':
                     subject = d['value']
                 if d['name'] == 'From':
@@ -193,3 +219,4 @@ def mailbag_unread():
         print(f"An error occurred: {error}")
 
     return
+
