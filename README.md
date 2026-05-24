@@ -25,6 +25,9 @@ This program requires Python to already be installed on your system.
 To run correctly, datascraper relies on an existing firefox profile being present in the directory. Since the profile files are too large to upload to github,
 you will have to create a new firefox profile, then store the profile folder in the same "datascraper files" folder, and then make sure the folder is called "38LpQTRD.Profile 1"
 
+OR you can just download it and unzip it from this drive link: https://drive.google.com/file/d/1gAUILhoJYuGSfJbA8qC1e1UHN7CwPHTf/view?usp=sharing
+
+
 ### Running Datascraper:
 
 Once all requirements are installed and the profile folder is placed in the datascraper folder, you can run the datascraper using the included batch file:  
