@@ -111,7 +111,8 @@ The backend did not work as expected.
 One major reason was that the project had different parts written in different languages and tools. Because of this, it became difficult to connect the frontend and backend into one working application.
 The frontend dashboard works as a prototype, but the backend features are not connected.
 
-## Features That Did Not Work
+## Features That Work Separately (But Not Connected to the GUI)
+These features did work in separate code files from different teammates, but we were not able to fully connect them to the main dashboard GUI.
 - Connecting to Google Sheets to read real AHA and RQI data
 - Sending real registration reminder emails
 - Sending real expiration reminder emails
