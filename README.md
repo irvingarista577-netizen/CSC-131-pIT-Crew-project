@@ -10,7 +10,7 @@
 
 ## Datascraper Files - Rhianna Nichols Thomae
 
-This folder contains all the datascraper program code which runs using shell commands.
+This folder contains all the datascraper python code which runs using shell commands.
 
 ### Datascraper Installation:
 
