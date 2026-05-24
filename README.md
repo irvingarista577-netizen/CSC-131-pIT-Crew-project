@@ -77,21 +77,21 @@ This program requires python and node.js to already be installed on your system.
 
 ### Frontend Setup
 Run these commands inside the frontend folder (GUIandLoginAutomation)
-npm install
+`npm install`
 
 ### To run Frontend
-npm run dev
+`npm run dev`
 
 ### Backend Setup
 First, you need to create a virtual environment in the backend folder (backend) and then install dependencies
 
-python -m venv venv
-venv\Scripts\activate
-pip install fastapi uvicorn playwright pydantic
-python -m playwright install
+`python -m venv venv`
+`venv\Scripts\activate`
+`pip install fastapi uvicorn playwright pydantic`
+`python -m playwright install`
 
 ### To run Backend
-uvicorn server:app --reload --port 5000
+`uvicorn server:app --reload --port 5000`
 
 ## Current Features
 - Dashboard layout with sidebar navigation
