@@ -65,3 +65,75 @@ or open a powershell/terminal window in that directory and enter this command:
 
   `sftp_upload(outputfile):` Takes a .csv spreadsheet file containing student info passed by value, opens a ssh client session and connects to the RQI SFTP server. Once connected, uploads the .csv file, then closes the ssh connection.
 
+# GUI and Login Automation Files - Ramsha Tasneem
+
+The dashboard organizes the main parts of the process in one place. Instead of checking multiple tools separately, our goal was to connect the dashboard with AHA login information, Google Sheets, email reminders, backend processing, and SFTP uploads. But, the full backend connection did not work.
+
+## GUI Installation
+
+This program requires python and node.js to already be installed on your system. Also make sure `pip` and `npm` are installed.
+
+## Packages/Dependencies
+
+### Frontend Setup
+Run these commands inside the frontend folder (GUIandLoginAutomation)
+npm install
+
+### To run Frontend
+npm run dev
+
+### Backend Setup
+First, you need to create a virtual environment in the backend folder (backend) and then install dependencies
+
+python -m venv venv
+venv\Scripts\activate
+pip install fastapi uvicorn playwright pydantic
+python -m playwright install
+
+### To run Backend
+uvicorn server:app --reload --port 5000
+
+## Current Features
+- Dashboard layout with sidebar navigation
+- Status cards for AHA students, RQI enrollments, and upload queue
+- Credentials page for saving AHA, email, and spreadsheet information
+- Live logs page for viewing recent dashboard activity
+- CSV upload and preview section
+- CSV sorting and table preview
+- RQI upload settings section
+- SFTP settings form
+- Reminder email templates for registration and expiration reminders
+- Email preview using sample student data
+- Local browser-based settings storage
+
+## Backend Status
+The backend did not work as expected.
+One major reason was that the project had different parts written in different languages and tools. Because of this, it became difficult to connect the frontend and backend into one working application.
+The frontend dashboard works as a prototype, but the backend features are not connected.
+
+## Features That Did Not Work
+- Connecting to Google Sheets to read real AHA and RQI data
+- Sending real registration reminder emails
+- Sending real expiration reminder emails
+- Secure backend API for saving and handling credentials
+- Real SFTP upload support
+- Replacing sample dashboard counts with live spreadsheet data
+- Full automation connection between the dashboard, backend, email system, and spreadsheet data
+
+## Main Pages
+
+### Dashboard
+Shows the main status cards and recent activity. The status card values currently use sample data because the real spreadsheet connection was not completed.
+
+### Credentials
+Stores the AHA login information, email addresses, and spreadsheet links used by the dashboard. All this information is stored locally in the browser.
+
+### Live Logs
+Shows recent dashboard actions such as saving settings, previewing emails, and testing upload steps. Logs can be filtered by section.
+
+### RQI Upload
+Allows CSV files to be previewed, upload status to be checked, CSV settings to be updated, and SFTP information to be entered. The current SFTP upload is only a test flow and does not upload files to a real server as the backend was not connected.
+
+### Reminder Emails
+Allows registration and expiration reminder templates to be edited. The current version creates email previews using sample student data, but it does not send real emails.
+
