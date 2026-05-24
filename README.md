@@ -138,3 +138,50 @@ Allows CSV files to be previewed, upload status to be checked, CSV settings to b
 ### Reminder Emails
 Allows registration and expiration reminder templates to be edited. The current version creates email previews using sample student data, but it does not send real emails.
 
+
+## Email Automation Google Scripts (GSSCRIPTS)— Ethan McDonald
+
+This folder contains all the Google Scripts files to be integrated into an RQI spreadsheet for Email Automation.
+
+### Installation
+
+1) Download .gs and .html files from gsscripts folder
+2) Open Google Scripts by going into your google sheet -> extensions - > App Scripts
+3) Paste files into app scripts
+
+### GlobalVariables.gs
+
+This file contains the variables used by each class to access information from the sheet. It is currently set up with our current Google Sheet design, so it may need to be modified if the column layout of the Google Sheet is changed. 
+Additionally holds variables for what email address to send Owner emails to. 
+
+
+### Classes
+
+Send User Class confirmation email (classID) : sends email detailing class information to user
+Send Pay request email (email) : Sends email with information to finish payment when the user is added to the RQI spreadsheet and payment isn’t marked.
+Send Payment receipt (email, classID) : sends email to owner email with receipt after payment is confirmed from the user.
+Send Reminder Email() : checks each user in the email list if today’s date == user reminder date (22/23/24 months later). Runs automatically daily.
+
+### Email Templates:
+
+RemEmail.html: Reminder email for students with upcoming certification expiration to renew certification. 
+Variables used: Name, Email Address, Certification Expiration Date
+
+PayRecievedEmail.html: Email to admin including class registration email and payment confirmation
+Variables used: Name, Email Address, Phone, Price, Location
+
+ClassReminderEmail.html: Email to students with upcoming class after finishing registration including class details.
+Variables used: Name, Email Address, Location, Address, Course, Instructor, Class Date.
+
+RegistrationEmail.html: Email to students to finish registration and redirect them to finish payment
+Variables used: Email Address
+
+### Current Implementation
+The Email Automation currently works, however it is not integrated into the GUI, and is only Back-end. Without proper integrations into the Front-end, programs will need to be run out of a main() function in the app scripts. 
+
+### What needs to be finished
+To finalize and make functional, the email automation program will need to be integrated into the GUI and have triggers created in relation with the Scraping programs to run automatically without manual input. 
+
+
+
+
