@@ -288,3 +288,48 @@ Processes incoming AHA registration emails.
 
 - Google Apps Script supports multiple `.gs` files.  
   Due to GitHub upload workflow limitations during development, files may temporarily be consolidated for demonstration purposes.
+
+## Scheduler Booking System — Irving Arista
+
+This folder contains the Java-based Scheduler Booking System connected to a MySQL database for storing and managing appointment bookings.
+
+### Required Software
+- Java JDK 17+
+- Eclipse IDE
+- MySQL Server
+- MySQL Workbench
+
+### Required Dependencies
+- MySQL Connector/J
+
+### Database Setup
+1. Open MySQL Workbench
+2. Create/import the database using:
+`scheduler.sql`
+3. Run the SQL script to create the required tables.
+
+### Database Connection
+Update the database connection inside the Java files if needed:
+
+```java
+String url = "jdbc:mysql://localhost:3306/scheduler_db";
+String user = "root";
+String password = "YOUR_PASSWORD";
+```
+
+### Running the Scheduler
+1. Open the project in Eclipse
+2. Add the MySQL Connector/J library to the build path
+3. Start MySQL Server
+4. Run `scheduler.sql`
+5. Run the main Java file
+
+### Scheduler Features
+- Appointment booking system
+- MySQL database integration
+- Booking storage and retrieval
+- GUI-based scheduler interface
+- User booking validation
+
+### Notes
+The scheduler system requires MySQL Server to be running before launching the application.
