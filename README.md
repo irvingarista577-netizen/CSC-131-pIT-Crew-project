@@ -288,3 +288,4 @@ Processes incoming AHA registration emails.
 
 - Google Apps Script supports multiple `.gs` files.  
   Due to GitHub upload workflow limitations during development, files may temporarily be consolidated for demonstration purposes.
+
